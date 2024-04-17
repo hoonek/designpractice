@@ -1,4 +1,5 @@
 import 'package:designpractice/start%20screen/selectoption.dart';
+import 'package:designpractice/start%20screen/test.dart';
 import 'package:flutter/material.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -134,10 +135,14 @@ class _LoginscreenState extends State<Loginscreen> {
                   ? () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SelectOption()),
+                  MaterialPageRoute(
+                    builder: (context) => const SelectOption(),
+
+                  ),
                 );
               }
                   : null,
+
               style: ElevatedButton.styleFrom(
                 backgroundColor: _isInputValid
                     ? Color(0xff9E8477) // 버튼 배경색
@@ -159,10 +164,10 @@ class _LoginscreenState extends State<Loginscreen> {
               ),
             ),
           ),
+
         ],
       ),
     );
   }
 }
-
 

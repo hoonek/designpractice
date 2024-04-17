@@ -1,42 +1,62 @@
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
 
-class ProgressUser extends StatelessWidget {
-  const ProgressUser({Key? key}) : super(key: key);
+class ProgressUser extends StatefulWidget {
+  const ProgressUser({super.key});
 
-  // 팝업 메뉴를 표시하는 함수
+  @override
+  _ProgressUserState createState() => _ProgressUserState();
+}
+
+class _ProgressUserState extends State<ProgressUser> {
+  late PageController pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false, // 뒤로가기 화살표 제거
-        title: Center( // 가운데 정렬
+        automaticallyImplyLeading: false,
+        title: Center(
           child: Text(
-            '인허가 진행 현황', // 앱바에 표시될 글씨
+            '인허가 진행 현황',
             style: TextStyle(
-              fontSize: 18, // 글씨 크기
-              fontWeight: FontWeight.w600, // 글씨체 두께
-              color: Color(0xff333333), // 글씨 색상
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+              color: Color(0xff333333),
             ),
           ),
         ),
-
-        toolbarHeight: 52, // 앱바 높이 설정
+        toolbarHeight: 52,
         actions: [
           Builder(
             builder: (context) => IconButton(
               onPressed: () {
-                Scaffold.of(context).openEndDrawer(); // 메뉴 아이콘 클릭 시 오른쪽 드로어 메뉴 열기
+                Scaffold.of(context).openEndDrawer();
               },
-              icon: Icon(Icons.menu), // 메뉴 아이콘
+              icon: Icon(Icons.menu),
             ),
           ),
         ],
       ),
-      endDrawer: DrawerMenu(), // 오른쪽 드로어 메뉴 추가
+      endDrawer: DrawerMenu(),
       body: Column(
         children: [
-          Text('인허가') // 메뉴 아이콘 클릭 시 표시될 내용
+          SizedBox(height: 20),
+          Text('인허가'),
+          SizedBox(height: 20),
+
         ],
       ),
     );
