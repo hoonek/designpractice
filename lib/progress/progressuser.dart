@@ -1,3 +1,4 @@
+import 'package:designpractice/etc/phonenumber.dart';
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
 
@@ -58,6 +59,23 @@ class _ProgressUserState extends State<ProgressUser> {
           SizedBox(height: 20),
 
         ],
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(right: 12.5, bottom: 12.5),
+        child: FloatingActionButton(
+          onPressed: (){
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context)=> PhoneNumber()),
+            );
+          },
+          backgroundColor: Colors.green,
+          shape: CircleBorder(),
+          child: Icon(
+              Icons.phone,
+          color: Colors.white,
+          ),
+        ),
       ),
     );
   }
