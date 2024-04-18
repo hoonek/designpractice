@@ -1,10 +1,16 @@
-import 'package:designpractice/start%20screen/test.dart';
 import 'package:flutter/material.dart';
 import '../progress/progressuser.dart';
+import 'package:designpractice/start%20screen/test.dart';
 
-
-class SelectOption extends StatelessWidget {
+class SelectOption extends StatefulWidget {
   const SelectOption({Key? key});
+
+  @override
+  _SelectOptionState createState() => _SelectOptionState();
+}
+
+class _SelectOptionState extends State<SelectOption> {
+  int selectedIndex = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -36,21 +42,9 @@ class SelectOption extends StatelessWidget {
                 List<String> titles = ['인허가 진행현황', '검토의뢰'];
                 return GestureDetector(
                   onTap: () {
-                    if (index == 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ProgressUser(),
-                        ),
-                      );
-                    } else if (index == 1) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Test(),
-                        ),
-                      );
-                    }
+                    setState(() {
+                      selectedIndex = index; // 선택한 항목의 index 값을 저장
+                    });
                   },
                   child: Container(
                     height: 80,
@@ -64,13 +58,59 @@ class SelectOption extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16),
-                      color: Color(0xfff3f1ea),
+                      color: selectedIndex == index ? Color(0xff9e8477) : Color(0xfff3f1ea),
                     ),
                   ),
                 );
               },
             ),
           ),
+          SizedBox(height: 10), // 선택완료 버튼과 Expanded 사이 간격 추가
+          SizedBox(
+            height: 10, // 간격 조정을 위한 SizedBox의 height 값을 줄임
+          ),
+          ElevatedButton(
+            onPressed: selectedIndex != -1 ? () {
+              if (selectedIndex == 0) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ProgressUser(),
+                  ),
+                );
+              } else if (selectedIndex == 1) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Test(),
+                  ),
+                );
+              }
+            } : null, // 선택된 컨테이너가 없을 때 버튼이 비활성화됨
+            child: Container(
+              height: 50,
+              width: double.infinity, // 버튼의 너비를 화면 전체로 설정
+              alignment: Alignment.center, // 텍스트를 버튼 가운데 정렬
+              child: Text(
+                '선택완료',
+                style: TextStyle(
+                  color: Colors.white,
+                  // 선택된 컨테이너가 없을 때 텍스트 색상이 검정색으로 유지됨
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: selectedIndex != -1 ? Color(0xff9e8477) : Color(0xfff3f1ea),
+              // 선택된 컨테이너가 있을 때 버튼 배경색이 초록색으로, 없을 때는 회색으로 변경됨
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+                // 버튼의 모서리를 둥글게 설정
+              ),
+            ),
+          ),
+          SizedBox(height: 20), // 버튼과 화면 하단 간격 추가
         ],
       ),
     );
