@@ -1,10 +1,9 @@
+import 'package:designpractice/start%20screen/loginscreen.dart';
 import 'package:flutter/material.dart';
-import '../drawmenudetail/drawmenulogout.dart';
 
 class DrawerMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return SizedBox(
       width: MediaQuery.of(context).size.width - 75, // 화면 전체 너비에서 75 픽셀을 뺀 크기
       child: Drawer(
@@ -54,22 +53,84 @@ class DrawerMenu extends StatelessWidget {
                 ),
               ),
             ),
+
             ListTile(
               title: Text('로그아웃'),
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DrawMenuLogout()),
+                showModalBottomSheet(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return Container(
+                      height: 200,
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              '로그아웃 하시겠습니까?',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff333333)
+                              ),
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '지금 로그아웃하시겠어요?',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff7b796f)
+                              ),
+                            ),
+                            SizedBox(height: 20),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Color(0xff87857a), backgroundColor: Color(0XFFfaf1ea), // 텍스트 색상
+                                    textStyle: TextStyle(fontSize: 16), // 텍스트 스타일
+                                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8), // 버튼의 모서리를 둥글게 만듦
+                                    ),
+                                  ),
+                                  child: Text('취소'),
+                                ),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => Loginscreen()),
+                                    ); // 바텀 시트 닫기
+                                    // 로그아웃 처리
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Color(0xffffffff), backgroundColor: Color(0xff9e8477), // 텍스트 색상
+                                    textStyle: TextStyle(fontSize: 16), // 텍스트 스타일
+                                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8), // 버튼의 모서리를 둥글게 만듦
+                                    ),
+                                  ),
+                                  child: Text('로그아웃'),
+                                ),
+                              ],
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 );
               },
             ),
-            // 다른 메뉴 항목을 추가할 수 있습니다.
-            // ListTile(
-            //   title: Text('다른 메뉴 항목'),
-            //   onTap: () {
-            //     // 다른 메뉴 항목을 선택할 때의 동작을 여기에 추가하세요.
-            //   },
-            // ),
           ],
         ),
       ),

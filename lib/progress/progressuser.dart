@@ -35,7 +35,7 @@ class _ProgressUserState extends State<ProgressUser> {
   @override
   Widget build(BuildContext context) {
     List<String> titles = [
-      '제목1',
+      '서울외곽 토지건',
       '제목2',
       '제목3',
       '제목4',
@@ -45,7 +45,7 @@ class _ProgressUserState extends State<ProgressUser> {
       '제목8'
     ];
     List<String> contents = [
-      '내용1',
+      '예상처리일 7월 28일',
       '내용2',
       '내용3',
       '내용4',
