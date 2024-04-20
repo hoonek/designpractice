@@ -1,9 +1,10 @@
-import 'package:designpractice/etc/phonenumber.dart';
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
+import '../etc/phonenumber.dart';
+import 'requestforreview.dart';
 
 class ProgressUser extends StatefulWidget {
-  const ProgressUser({super.key});
+  const ProgressUser({Key? key}) : super(key: key);
 
   @override
   _ProgressUserState createState() => _ProgressUserState();
@@ -11,6 +12,13 @@ class ProgressUser extends StatefulWidget {
 
 class _ProgressUserState extends State<ProgressUser> {
   late PageController pageController;
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -26,6 +34,27 @@ class _ProgressUserState extends State<ProgressUser> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> titles = [
+      '제목1',
+      '제목2',
+      '제목3',
+      '제목4',
+      '제목5',
+      '제목6',
+      '제목7',
+      '제목8'
+    ];
+    List<String> contents = [
+      '내용1',
+      '내용2',
+      '내용3',
+      '내용4',
+      '내용5',
+      '내용6',
+      '내용7',
+      '내용8'
+    ];
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -52,28 +81,81 @@ class _ProgressUserState extends State<ProgressUser> {
         ],
       ),
       endDrawer: DrawerMenu(),
-      body: Column(
-        children: [
-          SizedBox(height: 20),
-          Text('인허가'),
-          SizedBox(height: 20),
-
-        ],
+      body: ListView.builder(
+        itemCount: 8,
+        itemBuilder: (BuildContext context, int index) {
+          // 홀수 번호의 인덱스에 대해 검정색으로 설정합니다.
+          Color color =
+          index % 2 == 1 ? Color(0xffe6e3dd) : Color(0xfff5f3f1);
+          // 각 인덱스에 해당하는 컨테이너를 반환합니다.
+          return Container(
+            width: 335,
+            height: 152,
+            margin:
+            EdgeInsets.fromLTRB(8.0, index % 2 == 0 ? 8.0 : 0, 8.0, 0),
+            padding: EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              color: color,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(index % 2 == 0 ? 10.0 : 0),
+                topRight: Radius.circular(index % 2 == 0 ? 10.0 : 0),
+                bottomLeft: Radius.circular(index % 2 == 1 ? 10.0 : 0),
+                bottomRight: Radius.circular(index % 2 == 1 ? 10.0 : 0),
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  titles[index],
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  contents[index],
+                  style: TextStyle(
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
       ),
+
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.library_add_check),
+            label: '인허가 진행현황',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.sticky_note_2_outlined),
+            label: '검토의뢰',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Color(0xff333333),
+        onTap: _onItemTapped,
+      ),
+
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12.5, bottom: 12.5),
         child: FloatingActionButton(
-          onPressed: (){
+          onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context)=> PhoneNumber()),
+              MaterialPageRoute(builder: (context) => PhoneNumber()),
             );
           },
           backgroundColor: Colors.green,
           shape: CircleBorder(),
           child: Icon(
-              Icons.phone,
-          color: Colors.white,
+            Icons.phone,
+            color: Colors.white,
           ),
         ),
       ),
