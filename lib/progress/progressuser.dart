@@ -1,7 +1,8 @@
+import 'package:designpractice/requestforreview/enterreview.dart';
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
-import 'requestforreview.dart';
+import '../requestforreview/requestforreview.dart';
 
 class ProgressUser extends StatefulWidget {
   const ProgressUser({Key? key}) : super(key: key);
@@ -34,97 +35,55 @@ class _ProgressUserState extends State<ProgressUser> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> titles = [
-      '서울외곽 토지건',
-      '제목2',
-      '제목3',
-      '제목4',
-      '제목5',
-      '제목6',
-      '제목7',
-      '제목8'
-    ];
-    List<String> contents = [
-      '예상처리일 7월 28일',
-      '내용2',
-      '내용3',
-      '내용4',
-      '내용5',
-      '내용6',
-      '내용7',
-      '내용8'
-    ];
+    String appbarTitle = _selectedIndex == 0 ? '인허가 진행 현황' : '검토의뢰';
+    bool showIcon = _selectedIndex == 1; // 검토의뢰인 경우에만 아이콘 표시
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Center(
-          child: Text(
-            '인허가 진행 현황',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Color(0xff333333),
-            ),
-          ),
-        ),
-        toolbarHeight: 52,
-        actions: [
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: Icon(Icons.menu),
-            ),
-          ),
-        ],
-      ),
-      endDrawer: DrawerMenu(),
-      body: ListView.builder(
-        itemCount: 8,
-        itemBuilder: (BuildContext context, int index) {
-          // 홀수 번호의 인덱스에 대해 검정색으로 설정합니다.
-          Color color =
-          index % 2 == 1 ? Color(0xffe6e3dd) : Color(0xfff5f3f1);
-          // 각 인덱스에 해당하는 컨테이너를 반환합니다.
-          return Container(
-            width: 335,
-            height: 152,
-            margin:
-            EdgeInsets.fromLTRB(8.0, index % 2 == 0 ? 8.0 : 0, 8.0, 0),
-            padding: EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(index % 2 == 0 ? 10.0 : 0),
-                topRight: Radius.circular(index % 2 == 0 ? 10.0 : 0),
-                bottomLeft: Radius.circular(index % 2 == 1 ? 10.0 : 0),
-                bottomRight: Radius.circular(index % 2 == 1 ? 10.0 : 0),
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  titles[index],
+        title: Row(
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  appbarTitle,
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xff333333),
                   ),
                 ),
-                SizedBox(height: 8),
-                Text(
-                  contents[index],
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ],
+              ),
             ),
-          );
-        },
+            if (showIcon) // 검토의뢰일 때만 아이콘 표시
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => EnterReview()),
+                  );
+                  // 아이콘을 눌렀을 때 수행할 동작
+                },
+                icon: Icon(Icons.edit), // 아이콘 지정
+              ),
+
+            Builder(
+              builder: (context) => IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                icon: Icon(Icons.menu),
+              ),
+            ),
+          ],
+        ),
+        toolbarHeight: 52,
       ),
+
+
+
+
+      body: _selectedIndex == 0 ? ProgressUserPage() : RequestForReview(),
 
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
@@ -159,6 +118,76 @@ class _ProgressUserState extends State<ProgressUser> {
           ),
         ),
       ),
+    );
+  }
+}
+
+class ProgressUserPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List<String> titles = [
+      '서울외곽 토지건',
+      '제목2',
+      '제목3',
+      '제목4',
+      '제목5',
+      '제목6',
+      '제목7',
+      '제목8'
+    ];
+    List<String> contents = [
+      '예상처리일 7월 28일',
+      '내용2',
+      '내용3',
+      '내용4',
+      '내용5',
+      '내용6',
+      '내용7',
+      '내용8'
+    ];
+
+    return ListView.builder(
+      itemCount: 8,
+      itemBuilder: (BuildContext context, int index) {
+        // 홀수 번호의 인덱스에 대해 검정색으로 설정합니다.
+        Color color = index % 2 == 1 ? Color(0xffe6e3dd) : Color(0xfff5f3f1);
+        // 각 인덱스에 해당하는 컨테이너를 반환합니다.
+        return Container(
+          width: 335,
+          height: 152,
+          margin:
+          EdgeInsets.fromLTRB(8.0, index % 2 == 0 ? 8.0 : 0, 8.0, 0),
+          padding: EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(index % 2 == 0 ? 10.0 : 0),
+              topRight: Radius.circular(index % 2 == 0 ? 10.0 : 0),
+              bottomLeft: Radius.circular(index % 2 == 1 ? 10.0 : 0),
+              bottomRight: Radius.circular(index % 2 == 1 ? 10.0 : 0),
+            ),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                titles[index],
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                contents[index],
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
