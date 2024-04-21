@@ -1,7 +1,8 @@
-import 'package:designpractice/requestforreview/enterreview.dart';
+
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
+import '../requestforreview/newreview.dart';
 import '../requestforreview/requestforreview.dart';
 
 class ProgressUser extends StatefulWidget {
@@ -60,7 +61,7 @@ class _ProgressUserState extends State<ProgressUser> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => EnterReview()),
+                    MaterialPageRoute(builder: (context) => NewReview()),
                   );
                   // 아이콘을 눌렀을 때 수행할 동작
                 },
