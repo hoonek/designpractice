@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:designpractice/requestforreview/requestforreview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+
+import '../model/modelreview.dart';
 
 class Review {
   final String project;
@@ -213,16 +216,17 @@ class _NewReviewState extends State<NewReview> {
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
                       if (_areAllFieldsFilled) {
-                        Review newReview = Review(
+                        ModelReview modelreview = ModelReview(
                           project: _projectEditingController.text,
-                          local: _locationEditingController.text,
+                          location: _locationEditingController.text,
                           purpose: _purposeEditingController.text,
                           name: _nameEditingController.text,
                           space: _spaceEditingController.text,
                         );
-                        Navigator.pop(context, newReview);
+                        await FirebaseFirestore.instance.collection('review').doc(modelreview.project).set(modelreview.toJson());
+                        Navigator.pop(context, modelreview);
                       } else {
                         // 필드가 하나 이상 비어있는 경우
                         showDialog(

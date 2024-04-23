@@ -1,5 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:designpractice/start%20screen/selectoption.dart';
-import 'package:designpractice/start%20screen/test.dart';
 import 'package:flutter/material.dart';
 
 class Loginscreen extends StatefulWidget {
@@ -28,8 +28,7 @@ class _LoginscreenState extends State<Loginscreen> {
 
   void _validateInput() {
     setState(() {
-      _isInputValid = _nameController.text.isNotEmpty &&
-          _memberIdController.text.isNotEmpty;
+      _isInputValid = _nameController.text.isNotEmpty && _memberIdController.text.isNotEmpty;
     });
   }
 
@@ -133,16 +132,14 @@ class _LoginscreenState extends State<Loginscreen> {
             child: ElevatedButton(
               onPressed: _isInputValid
                   ? () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SelectOption(),
-
-                  ),
-                );
-              }
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SelectOption(),
+                        ),
+                      );
+                    }
                   : null,
-
               style: ElevatedButton.styleFrom(
                 backgroundColor: _isInputValid
                     ? Color(0xff9E8477) // 버튼 배경색
@@ -165,9 +162,32 @@ class _LoginscreenState extends State<Loginscreen> {
             ),
           ),
 
+          /*
+          ElevatedButton(
+            onPressed: () async {
+              // collection(book)
+              // doc(page) -> each model
+              // userCollection -> userModel -> khuser, knuser, jwuser
+              // itemCollection -> itemModel ->
+              await FirebaseFirestore.instance.collection('test').doc('docId_1').set({
+                'id': 1,
+              }); // doc id fixed and doc added
+              //await FirebaseFirestore.instance.collection('test').add({'id': 1});
+              await FirebaseFirestore.instance.collection('test').doc('docId_1').update({
+                'listMemberId': FieldValue.arrayUnion(['myId']),
+              });
+              // listMemberId : ['id_1','id_2'] -> ['id_1','id_2','my_Id']
+              await FirebaseFirestore.instance.collection('test').doc('docId_1').update({
+                'listMemberId': FieldValue.arrayUnion(['myId']),
+              });
+            },
+            child: Text('uos'),
+
+          ),
+
+           */
         ],
       ),
     );
   }
 }
-

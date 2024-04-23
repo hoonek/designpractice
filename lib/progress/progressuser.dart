@@ -1,9 +1,11 @@
 
+import 'package:designpractice/progress/newprogress.dart';
 import 'package:flutter/material.dart';
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
 import '../requestforreview/newreview.dart';
 import '../requestforreview/requestforreview.dart';
+
 
 class ProgressUser extends StatefulWidget {
   const ProgressUser({Key? key}) : super(key: key);
@@ -38,6 +40,7 @@ class _ProgressUserState extends State<ProgressUser> {
   Widget build(BuildContext context) {
     String appbarTitle = _selectedIndex == 0 ? '인허가 진행 현황' : '검토의뢰';
     bool showIcon = _selectedIndex == 1; // 검토의뢰인 경우에만 아이콘 표시
+    bool showNewProgressIcon = _selectedIndex == 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,6 +69,16 @@ class _ProgressUserState extends State<ProgressUser> {
                   // 아이콘을 눌렀을 때 수행할 동작
                 },
                 icon: Icon(Icons.edit), // 아이콘 지정
+              ),
+            if (showNewProgressIcon)
+              IconButton(
+                onPressed: (){
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context)=> NewProgress()),
+                  );
+                },
+                icon: Icon(Icons.edit_calendar)
               ),
 
             Builder(
@@ -119,6 +132,7 @@ class _ProgressUserState extends State<ProgressUser> {
           ),
         ),
       ),
+
     );
   }
 }

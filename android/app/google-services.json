@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "854969208122",
+    "project_id": "designpractice-2e0ba",
+    "storage_bucket": "designpractice-2e0ba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:854969208122:android:eec403997d01796807d403",
+        "android_client_info": {
+          "package_name": "com.example.designpractice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC0O6416barox2HnxpkiqbGIvHyngjLvco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
