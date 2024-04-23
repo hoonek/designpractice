@@ -1,10 +1,11 @@
-
-import 'package:designpractice/progress/newprogress.dart';
 import 'package:flutter/material.dart';
+
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
+
 import '../requestforreview/newreview.dart';
 import '../requestforreview/requestforreview.dart';
+import 'newprogress.dart';
 
 
 class ProgressUser extends StatefulWidget {
@@ -38,12 +39,14 @@ class _ProgressUserState extends State<ProgressUser> {
 
   @override
   Widget build(BuildContext context) {
-    String appbarTitle = _selectedIndex == 0 ? '인허가 진행 현황' : '검토의뢰';
-    bool showIcon = _selectedIndex == 1; // 검토의뢰인 경우에만 아이콘 표시
+    String appbarTitle =
+    _selectedIndex == 0 ? '인허가 진행 현황' : '검토의뢰';
+    bool showIcon = _selectedIndex == 0; // 검토의뢰인 경우에만 아이콘 표시
     bool showNewProgressIcon = _selectedIndex == 0;
 
     return Scaffold(
-      appBar: AppBar(
+      appBar: showIcon
+          ? AppBar(
         automaticallyImplyLeading: false,
         title: Row(
           children: [
@@ -59,28 +62,29 @@ class _ProgressUserState extends State<ProgressUser> {
                 ),
               ),
             ),
-            if (showIcon) // 검토의뢰일 때만 아이콘 표시
+            if (showIcon == 0)
+              IconButton(
+                onPressed: () async {
+                  final result = await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => NewReview()),
+                  );
+                  if (result != null) {
+                    setState(() {});
+                  }
+                },
+                icon: Icon(Icons.edit),
+              ),
+            if (showNewProgressIcon)
               IconButton(
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => NewReview()),
-                  );
-                  // 아이콘을 눌렀을 때 수행할 동작
-                },
-                icon: Icon(Icons.edit), // 아이콘 지정
-              ),
-            if (showNewProgressIcon)
-              IconButton(
-                onPressed: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context)=> NewProgress()),
+                    MaterialPageRoute(builder: (context) => NewProgress()),
                   );
                 },
-                icon: Icon(Icons.edit_calendar)
+                icon: Icon(Icons.edit_calendar),
               ),
-
             Builder(
               builder: (context) => IconButton(
                 onPressed: () {
@@ -92,13 +96,9 @@ class _ProgressUserState extends State<ProgressUser> {
           ],
         ),
         toolbarHeight: 52,
-      ),
-
-
-
-
-      body: _selectedIndex == 0 ? ProgressUserPage() : RequestForReview(),
-
+      )
+          : null, // 앱바 숨김
+      body: _selectedIndex == 0 ? ProgressUserPage() : RequestForReview(), // RequestForReview 위젯으로 변경
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -114,7 +114,6 @@ class _ProgressUserState extends State<ProgressUser> {
         selectedItemColor: Color(0xff333333),
         onTap: _onItemTapped,
       ),
-
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(right: 12.5, bottom: 12.5),
         child: FloatingActionButton(
@@ -132,7 +131,6 @@ class _ProgressUserState extends State<ProgressUser> {
           ),
         ),
       ),
-
     );
   }
 }
@@ -164,14 +162,13 @@ class ProgressUserPage extends StatelessWidget {
     return ListView.builder(
       itemCount: 8,
       itemBuilder: (BuildContext context, int index) {
-        // 홀수 번호의 인덱스에 대해 검정색으로 설정합니다.
-        Color color = index % 2 == 1 ? Color(0xffe6e3dd) : Color(0xfff5f3f1);
-        // 각 인덱스에 해당하는 컨테이너를 반환합니다.
+        Color color =
+        index % 2 == 1 ? Color(0xffe6e3dd) : Color(0xfff5f3f1);
         return Container(
           width: 335,
           height: 152,
-          margin:
-          EdgeInsets.fromLTRB(8.0, index % 2 == 0 ? 8.0 : 0, 8.0, 0),
+          margin: EdgeInsets.fromLTRB(
+              8.0, index % 2 == 0 ? 8.0 : 0, 8.0, 0),
           padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: color,

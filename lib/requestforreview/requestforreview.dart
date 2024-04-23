@@ -13,12 +13,16 @@ class _RequestForReviewState extends State<RequestForReview> {
 
   String? get project => null;
 
+  bool _showAppBarTitle = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: _showAppBarTitle
+          ? AppBar(
         title: Text('dd'),
-      ),
+      )
+          : null,
     );
   }
 }
