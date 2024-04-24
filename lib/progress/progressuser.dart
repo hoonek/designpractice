@@ -62,7 +62,7 @@ class _ProgressUserState extends State<ProgressUser> {
                 ),
               ),
             ),
-            if (showIcon == 0)
+            if (showIcon == false)
               IconButton(
                 onPressed: () async {
                   final result = await Navigator.push(
@@ -92,12 +92,15 @@ class _ProgressUserState extends State<ProgressUser> {
                 },
                 icon: Icon(Icons.menu),
               ),
+
             ),
           ],
         ),
         toolbarHeight: 52,
       )
           : null, // 앱바 숨김
+
+
       body: _selectedIndex == 0 ? ProgressUserPage() : RequestForReview(), // RequestForReview 위젯으로 변경
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
