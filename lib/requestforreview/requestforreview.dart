@@ -40,7 +40,9 @@ class _RequestForReviewState extends State<RequestForReview> {
     String appbarTitle = '검토의뢰';
 
     return Scaffold(
+      backgroundColor: Color(0xfffefbf6),
       appBar: AppBar(
+        backgroundColor: Color(0xfffefbf6),
         automaticallyImplyLeading: false,
         title: Center(
           child: Text(
@@ -89,11 +91,13 @@ class _RequestForReviewState extends State<RequestForReview> {
               );
             },
             child: Container(
+              width: 335,
+              height: 136,
               margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
+                color: Color(0xffffffff),
+                  borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
@@ -107,20 +111,34 @@ class _RequestForReviewState extends State<RequestForReview> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '프로젝트명: ${modelreviews[index].project}',
+                    '${modelreviews[index].name}',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
                       fontSize: 16,
+                      color: Color(0xff90786c),
+                      fontWeight: FontWeight.w700
                     ),
                   ),
+
                   SizedBox(height: 8),
+
                   Text(
-                    '신청인: ${modelreviews[index].name}',
+                    '${modelreviews[index].project}',
                     style: TextStyle(
-                      fontSize: 14,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 16,
+                      color: Color(0xff333333),
                     ),
                   ),
-                ],
+                  SizedBox(height: 22),
+                  Text(
+                    '검토현황',
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
+                      color: Color(0xff87857a)
+                    ),
+                  )
+                   ],
               ),
             ),
           );
