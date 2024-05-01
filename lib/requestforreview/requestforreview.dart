@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import '../etc/phonenumber.dart';
 import '../model/modelreview.dart';
 import 'newreview.dart';
 import 'reportreview.dart';
@@ -10,6 +11,7 @@ class RequestForReview extends StatefulWidget {
 }
 
 class _RequestForReviewState extends State<RequestForReview> {
+  int _selectedIndex = 0;
   // Firestore에서 가져온 리뷰 데이터를 저장할 리스트
   List<ModelReview> modelreviews = [];
 
@@ -40,43 +42,6 @@ class _RequestForReviewState extends State<RequestForReview> {
     String appbarTitle = '검토의뢰';
 
     return Scaffold(
-      backgroundColor: Color(0xfffefbf6),
-      appBar: AppBar(
-        backgroundColor: Color(0xfffefbf6),
-        automaticallyImplyLeading: false,
-        title: Center(
-          child: Text(
-            appbarTitle,
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Color(0xff333333),
-            ),
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => NewReview()),
-              );
-              if (result != null) {
-                setState(() {});
-              }
-            },
-            icon: Icon(Icons.edit),
-          ),
-          Builder(
-            builder: (context) => IconButton(
-              onPressed: () {
-                Scaffold.of(context).openEndDrawer();
-              },
-              icon: Icon(Icons.menu),
-            ),
-          ),
-        ],
-      ),
       body: ListView.builder(
         itemCount: modelreviews.length,
         itemBuilder: (context, index) {
@@ -97,7 +62,7 @@ class _RequestForReviewState extends State<RequestForReview> {
               padding: EdgeInsets.all(16),
               decoration: BoxDecoration(
                 color: Color(0xffffffff),
-                  borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
@@ -113,14 +78,11 @@ class _RequestForReviewState extends State<RequestForReview> {
                   Text(
                     '${modelreviews[index].name}',
                     style: TextStyle(
-                      fontSize: 16,
-                      color: Color(0xff90786c),
-                      fontWeight: FontWeight.w700
-                    ),
+                        fontSize: 16,
+                        color: Color(0xff90786c),
+                        fontWeight: FontWeight.w700),
                   ),
-
                   SizedBox(height: 8),
-
                   Text(
                     '${modelreviews[index].project}',
                     style: TextStyle(
@@ -130,15 +92,20 @@ class _RequestForReviewState extends State<RequestForReview> {
                     ),
                   ),
                   SizedBox(height: 22),
-                  Text(
-                    '검토현황',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                      color: Color(0xff87857a)
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        '검토현황',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 13,
+                            color: Color(0xff87857a)),
+                      ),
+                      Text('테스트')
+                    ],
                   )
-                   ],
+                ],
               ),
             ),
           );

@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
-
 import '../requestforreview/newreview.dart';
 import '../requestforreview/requestforreview.dart';
 import 'newprogress.dart';
-
 
 class ProgressUser extends StatefulWidget {
   const ProgressUser({Key? key}) : super(key: key);
@@ -43,98 +40,12 @@ class _ProgressUserState extends State<ProgressUser> {
     _selectedIndex == 0 ? '인허가 진행 현황' : '검토의뢰';
     bool showIcon = _selectedIndex == 0; // 검토의뢰인 경우에만 아이콘 표시
     bool showNewProgressIcon = _selectedIndex == 0;
+    bool showBottomNavBar = _selectedIndex == 0;
 
     return Scaffold(
-      appBar: showIcon
-          ? AppBar(
-        automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  appbarTitle,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff333333),
-                  ),
-                ),
-              ),
-            ),
-            if (showIcon == false)
-              IconButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewReview()),
-                  );
-                  if (result != null) {
-                    setState(() {});
-                  }
-                },
-                icon: Icon(Icons.edit),
-              ),
-            if (showNewProgressIcon)
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewProgress()),
-                  );
-                },
-                icon: Icon(Icons.edit_calendar),
-              ),
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: Icon(Icons.menu),
-              ),
-
-            ),
-          ],
-        ),
-        toolbarHeight: 52,
-      )
-          : null, // 앱바 숨김
-
-
-      body: _selectedIndex == 0 ? ProgressUserPage() : RequestForReview(), // RequestForReview 위젯으로 변경
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.library_add_check),
-            label: '인허가 진행현황',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.sticky_note_2_outlined),
-            label: '검토의뢰',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Color(0xff333333),
-        onTap: _onItemTapped,
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(right: 12.5, bottom: 12.5),
-        child: FloatingActionButton(
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PhoneNumber()),
-            );
-          },
-          backgroundColor: Colors.green,
-          shape: CircleBorder(),
-          child: Icon(
-            Icons.phone,
-            color: Colors.white,
-          ),
-        ),
-      ),
+      body: ProgressUserPage()
     );
+
   }
 }
 

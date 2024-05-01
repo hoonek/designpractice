@@ -1,7 +1,7 @@
-import 'package:designpractice/requestforreview/requestforreview.dart';
 import 'package:flutter/material.dart';
+import 'package:designpractice/requestforreview/requestforreview.dart';
 import '../progress/progressuser.dart';
-import 'package:designpractice/start%20screen/test.dart';
+import '../start screen/selectedoptionhome.dart'; // SelectedOptionHome import
 
 class SelectOption extends StatefulWidget {
   const SelectOption({Key? key});
@@ -35,38 +35,38 @@ class _SelectOptionState extends State<SelectOption> {
             ),
           ),
           SizedBox(height: 10),
-        ListView.builder(
-              shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: (BuildContext context, int index) {
-                List<String> titles = ['인허가 진행현황', '검토의뢰'];
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      selectedIndex = index; // 선택한 항목의 index 값을 저장
-                    });
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
-                    child: Container(
-                      height: 80,
-                      margin: EdgeInsets.all(5),
-                      child: Text(
-                        titles[index],
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: selectedIndex == index ? Color(0xff9e8477) : Color(0xfff3f1ea),
+          ListView.builder(
+            shrinkWrap: true,
+            itemCount: 2,
+            itemBuilder: (BuildContext context, int index) {
+              List<String> titles = ['인허가 진행현황', '검토의뢰'];
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedIndex = index; // 선택한 항목의 index 값을 저장
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20.0, right: 20),
+                  child: Container(
+                    height: 80,
+                    margin: EdgeInsets.all(5),
+                    child: Text(
+                      titles[index],
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16),
+                      color: selectedIndex == index ? Color(0xff9e8477) : Color(0xfff3f1ea),
+                    ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
+          ),
 
           SizedBox(height: 10), // 선택완료 버튼과 Expanded 사이 간격 추가
           SizedBox(
@@ -76,21 +76,12 @@ class _SelectOptionState extends State<SelectOption> {
             padding: const EdgeInsets.all(20),
             child: ElevatedButton(
               onPressed: selectedIndex != -1 ? () {
-                if (selectedIndex == 0) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ProgressUser(),
-                    ),
-                  );
-                } else if (selectedIndex == 1) {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => RequestForReview(),
-                    ),
-                  );
-                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => SelectedOptionHome(selectedIndex: selectedIndex), // 선택된 인덱스를 SelectedOptionHome으로 전달
+                  ),
+                );
               } : null, // 선택된 컨테이너가 없을 때 버튼이 비활성화됨
               child: Container(
                 height: 50,
