@@ -37,9 +37,9 @@ class _SelectOptionState extends State<SelectOption> {
           SizedBox(height: 10),
           ListView.builder(
             shrinkWrap: true,
-            itemCount: 2,
+            itemCount: 4,
             itemBuilder: (BuildContext context, int index) {
-              List<String> titles = ['인허가 진행현황', '검토의뢰'];
+              List<String> titles = ['인허가 진행현황_관리자', '검토의뢰_관리자','인허가 진행현황_유저', '검토의뢰_유저'];
               return GestureDetector(
                 onTap: () {
                   setState(() {

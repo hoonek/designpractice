@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../etc/phonenumber.dart';
 import '../model/modelreview.dart';
+import 'editreview.dart';
 import 'newreview.dart';
 import 'reportreview.dart';
 
-class RequestForReview extends StatefulWidget {
+class RequestForReviewUser extends StatefulWidget {
   @override
-  _RequestForReviewState createState() => _RequestForReviewState();
+  _RequestForReviewUserState createState() => _RequestForReviewUserState();
 }
 
-class _RequestForReviewState extends State<RequestForReview> {
+class _RequestForReviewUserState extends State<RequestForReviewUser> {
   int _selectedIndex = 0;
   // Firestore에서 가져온 리뷰 데이터를 저장할 리스트
   List<ModelReview> modelreviews = [];
@@ -52,7 +53,7 @@ class _RequestForReviewState extends State<RequestForReview> {
                 context,
                 MaterialPageRoute(
                     builder: (context) =>
-                        ReportReview(modelReview: modelreviews[index])),
+                        EditReview(modelReview: modelreviews[index])),
               );
             },
             child: Container(
