@@ -5,6 +5,7 @@ class ModelReview {
   final String name;
   final String space;
 
+
   // 생성자
   ModelReview({
     required this.project,
@@ -12,6 +13,7 @@ class ModelReview {
     required this.purpose,
     required this.name,
     required this.space,
+
 
   });
 
@@ -23,16 +25,18 @@ class ModelReview {
       'purpose': purpose,
       'name': name,
       'space': space,
+
     };
   }
 
   factory ModelReview.fromJson(Map<String, dynamic> json) {
     return ModelReview(
-      project: json['project'] ?? '', // 널 값을 문자열로 처리
-      location: json['price'] ?? '', // 문자열을 double로 변환하거나 적절한 기본값 사용
-      purpose: json['content'] ?? '', // 널 값을 문자열로 처리
+      project: json['project'] ?? '',
+      location: json['price'] ?? '',
+      purpose: json['content'] ?? '',
       name: json['name'] ??'',
       space: json['space'] ?? '',
+
     );
   }
 
