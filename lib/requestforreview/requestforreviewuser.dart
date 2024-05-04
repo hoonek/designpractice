@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../etc/phonenumber.dart';
-import '../model/modelreview.dart';
+import '../model/model_review.dart';
 import 'editreview.dart';
-import 'newreview.dart';
+import 'new_review.dart';
 import 'reportreview.dart';
 
 class RequestForReviewUser extends StatefulWidget {

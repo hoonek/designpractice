@@ -10,11 +10,11 @@ class DrawerMenu extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 250, // DrawerHeader의 높이를 250으로 설정
               child: Center(
                 child: DrawerHeader(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +55,7 @@ class DrawerMenu extends StatelessWidget {
             ),
 
             ListTile(
-              title: Text('로그아웃'),
+              title: const Text('로그아웃'),
               onTap: () {
                 showModalBottomSheet(
                   context: context,
@@ -68,7 +68,7 @@ class DrawerMenu extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Text(
+                            const Text(
                               '로그아웃 하시겠습니까?',
                               style: TextStyle(
                                 fontSize: 18,
@@ -76,8 +76,8 @@ class DrawerMenu extends StatelessWidget {
                                 color: Color(0xff333333)
                               ),
                             ),
-                            SizedBox(height: 5),
-                            Text(
+                            const SizedBox(height: 5),
+                            const Text(
                               '지금 로그아웃하시겠어요?',
                               style: TextStyle(
                                 fontSize: 14,
@@ -85,7 +85,7 @@ class DrawerMenu extends StatelessWidget {
                                 color: Color(0xff7b796f)
                               ),
                             ),
-                            SizedBox(height: 20),
+                            const SizedBox(height: 20),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -94,14 +94,14 @@ class DrawerMenu extends StatelessWidget {
                                     Navigator.of(context).pop();
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    foregroundColor: Color(0xff87857a), backgroundColor: Color(0XFFfaf1ea), // 텍스트 색상
-                                    textStyle: TextStyle(fontSize: 16), // 텍스트 스타일
-                                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
+                                    foregroundColor: const Color(0xff87857a), backgroundColor: const Color(0XFFfaf1ea), // 텍스트 색상
+                                    textStyle: const TextStyle(fontSize: 16), // 텍스트 스타일
+                                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8), // 버튼의 모서리를 둥글게 만듦
                                     ),
                                   ),
-                                  child: Text('취소'),
+                                  child: const Text('취소'),
                                 ),
                                 ElevatedButton(
                                   onPressed: () {
@@ -112,14 +112,14 @@ class DrawerMenu extends StatelessWidget {
                                     // 로그아웃 처리
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    foregroundColor: Color(0xffffffff), backgroundColor: Color(0xff9e8477), // 텍스트 색상
-                                    textStyle: TextStyle(fontSize: 16), // 텍스트 스타일
-                                    padding: EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
+                                    foregroundColor: const Color(0xffffffff), backgroundColor: const Color(0xff9e8477), // 텍스트 색상
+                                    textStyle: const TextStyle(fontSize: 16), // 텍스트 스타일
+                                    padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 60), // 버튼 내부 패딩
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(8), // 버튼의 모서리를 둥글게 만듦
                                     ),
                                   ),
-                                  child: Text('로그아웃'),
+                                  child: const Text('로그아웃'),
                                 ),
                               ],
                             ),

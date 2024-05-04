@@ -1,20 +1,33 @@
-import 'package:designpractice/model/modelopinion.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:designpractice/model/model_opinion.dart';
 import 'package:flutter/material.dart';
-import 'package:designpractice/requestforreview/requestforreviewuser.dart';
-import '../model/modelreview.dart';
+import '../model/model_review.dart';
 
 class EditReview extends StatefulWidget {
-
   final ModelReview modelReview;
 
-  const EditReview({Key? key, required this.modelReview}) : super(key: key);
+  const EditReview({super.key, required this.modelReview});
 
   @override
   State<EditReview> createState() => _EditReviewState();
 }
 
 class _EditReviewState extends State<EditReview> {
+  ModelOpinion? modelOpinion;
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getModelOpinion();
+  }
+
+  getModelOpinion() async {
+    final qs = await FirebaseFirestore.instance.collection('manager_opinion').where('reviewId', isEqualTo: widget.modelReview.id).get();
+    setState(() {
+      modelOpinion = ModelOpinion.fromJson(qs.docs.first.data());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +36,21 @@ class _EditReviewState extends State<EditReview> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new),
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => RequestForReviewUser()),
-            );
+            Navigator.of(context).pop();
           },
         ),
         title: const Text('검토 현황'),
       ),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Align(
+              const Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(left: 20.0, right: 20, top:8, bottom: 8),
+                  padding: EdgeInsets.only(left: 20.0, right: 20, top: 8, bottom: 8),
                   child: Text(
                     '검토의견',
                     style: TextStyle(
@@ -52,7 +61,6 @@ class _EditReviewState extends State<EditReview> {
                   ),
                 ),
               ),
-
               Container(
                 width: 335,
                 height: 131,
@@ -60,16 +68,10 @@ class _EditReviewState extends State<EditReview> {
                   borderRadius: BorderRadius.circular(12),
                   color: const Color(0xfff4f1ea),
                 ),
-                child:
-                const Text(
-                  'ㅇㅇ' // need to bring data from firebase
-                ),
-
+                child: Text(modelOpinion == null ? '로딩중' : modelOpinion!.content),
               ),
-
-              SizedBox(height: 20),
-
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '프로젝트',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -79,15 +81,13 @@ class _EditReviewState extends State<EditReview> {
               ),
               TextField(
                 controller: TextEditingController(text: widget.modelReview.project),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '위치',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -97,15 +97,13 @@ class _EditReviewState extends State<EditReview> {
               ),
               TextField(
                 controller: TextEditingController(text: widget.modelReview.location),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '목적',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -115,15 +113,13 @@ class _EditReviewState extends State<EditReview> {
               ),
               TextField(
                 controller: TextEditingController(text: widget.modelReview.purpose),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '신청인',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -133,15 +129,13 @@ class _EditReviewState extends State<EditReview> {
               ),
               TextField(
                 controller: TextEditingController(text: widget.modelReview.name),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-
-              SizedBox(height: 20),
-
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 '면적',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -151,7 +145,7 @@ class _EditReviewState extends State<EditReview> {
               ),
               TextField(
                 controller: TextEditingController(text: widget.modelReview.space),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
@@ -163,4 +157,3 @@ class _EditReviewState extends State<EditReview> {
     );
   }
 }
-

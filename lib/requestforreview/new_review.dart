@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:designpractice/requestforreview/requestforreview.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
+import 'package:uuid/uuid.dart';
 
-import '../model/modelreview.dart';
+import '../model/model_review.dart';
 
 class Review {
   final String project;
@@ -31,11 +29,11 @@ class NewReview extends StatefulWidget {
 }
 
 class _NewReviewState extends State<NewReview> {
-  TextEditingController _projectEditingController = TextEditingController();
-  TextEditingController _locationEditingController = TextEditingController();
-  TextEditingController _purposeEditingController = TextEditingController();
-  TextEditingController _nameEditingController = TextEditingController();
-  TextEditingController _spaceEditingController = TextEditingController();
+  final TextEditingController _projectEditingController = TextEditingController();
+  final TextEditingController _locationEditingController = TextEditingController();
+  final TextEditingController _purposeEditingController = TextEditingController();
+  final TextEditingController _nameEditingController = TextEditingController();
+  final TextEditingController _spaceEditingController = TextEditingController();
   bool _areAllFieldsFilled = false;
 
   @override
@@ -93,7 +91,7 @@ class _NewReviewState extends State<NewReview> {
             ),
             TextField(
               controller: _projectEditingController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
@@ -106,10 +104,10 @@ class _NewReviewState extends State<NewReview> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               '위치',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -119,12 +117,12 @@ class _NewReviewState extends State<NewReview> {
             ),
             TextField(
               controller: _locationEditingController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
               onChanged: (_) => _checkFields(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color(0xffe6e3dd), // 변경하려는 색상
@@ -132,10 +130,10 @@ class _NewReviewState extends State<NewReview> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               '목적',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -145,12 +143,12 @@ class _NewReviewState extends State<NewReview> {
             ),
             TextField(
               controller: _purposeEditingController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
               onChanged: (_) => _checkFields(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color(0xffe6e3dd), // 변경하려는 색상
@@ -158,10 +156,10 @@ class _NewReviewState extends State<NewReview> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               '신청인',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -171,12 +169,12 @@ class _NewReviewState extends State<NewReview> {
             ),
             TextField(
               controller: _nameEditingController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
               onChanged: (_) => _checkFields(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color(0xffe6e3dd), // 변경하려는 색상
@@ -184,10 +182,10 @@ class _NewReviewState extends State<NewReview> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text(
+            const Text(
               '면적',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -197,12 +195,12 @@ class _NewReviewState extends State<NewReview> {
             ),
             TextField(
               controller: _spaceEditingController,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w600,
               ),
               onChanged: (_) => _checkFields(),
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 enabledBorder: UnderlineInputBorder(
                   borderSide: BorderSide(
                     color: Color(0xffe6e3dd), // 변경하려는 색상
@@ -218,7 +216,9 @@ class _NewReviewState extends State<NewReview> {
                   child: ElevatedButton(
                     onPressed: () async{
                       if (_areAllFieldsFilled) {
+                        final id = Uuid().v4();
                         ModelReview modelreview = ModelReview(
+                          id: id,
                           project: _projectEditingController.text,
                           location: _locationEditingController.text,
                           purpose: _purposeEditingController.text,
@@ -233,14 +233,14 @@ class _NewReviewState extends State<NewReview> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text('입력 오류'),
-                              content: Text('모든 필드를 작성해주세요.'),
+                              title: const Text('입력 오류'),
+                              content: const Text('모든 필드를 작성해주세요.'),
                               actions: [
                                 TextButton(
                                   onPressed: () {
                                     Navigator.of(context).pop();
                                   },
-                                  child: Text('확인'),
+                                  child: const Text('확인'),
                                 ),
                               ],
                             );
@@ -248,19 +248,19 @@ class _NewReviewState extends State<NewReview> {
                         );
                       }
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(4),
+                      backgroundColor: _areAllFieldsFilled ? const Color(0xff9e8477) : const Color(0xffe1d9d5), // 필드가 모두 채워져 있으면 검은색, 아니면 회색
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       '저장',
                       style: TextStyle(
                         color: Color(0xffffffff),
                         fontWeight: FontWeight.w700,
                         fontSize: 16,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.all(4),
-                      backgroundColor: _areAllFieldsFilled ? Color(0xff9e8477) : Color(0xffe1d9d5), // 필드가 모두 채워져 있으면 검은색, 아니면 회색
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

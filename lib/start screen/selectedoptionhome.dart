@@ -5,13 +5,13 @@ import '../etc/phonenumber.dart';
 import '../progress/newprogress.dart';
 import '../progress/progress.dart';
 import '../progress/progressuser.dart';
-import '../requestforreview/newreview.dart';
+import '../requestforreview/new_review.dart';
 import '../requestforreview/requestforreviewuser.dart';
 
 class SelectedOptionHome extends StatefulWidget {
   final int selectedIndex; // 선택된 인덱스를 저장하기 위한 변수
 
-  SelectedOptionHome({required this.selectedIndex});
+  const SelectedOptionHome({required this.selectedIndex});
 
   @override
   _SelectedOptionHomeState createState() => _SelectedOptionHomeState();
@@ -39,28 +39,28 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
               onPressed: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewProgress()),
+                  MaterialPageRoute(builder: (context) => const NewProgress()),
                 );
                 if (result != null) {
                   setState(() {});
                 }
               },
-              icon: Icon(Icons.edit),
+              icon: const Icon(Icons.edit),
             ),
           if (_selectedIndex == 3)
             IconButton(
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => NewReview()),
+                  MaterialPageRoute(builder: (context) => const NewReview()),
                 );
               },
-              icon: Icon(Icons.edit_calendar),
+              icon: const Icon(Icons.edit_calendar),
             ),
         ],
         title: Text(
           _selectedIndex == 0 ? '인허가 진행현황_관리자' : (_selectedIndex == 1 ? '검토의뢰_관리자' : (_selectedIndex == 2 ? '인허가 진행현황_유저' : '검토의뢰_유저')),
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w600,
             color: Color(0xff333333),
@@ -71,8 +71,8 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
 
       // _selectedIndex가 0이 아닌 경우 앱바를 숨김
       body: _selectedIndex == 0
-          ? ProgressUser()
-          : (_selectedIndex == 1 ? RequestForReview() : (_selectedIndex == 2 ? Progress() : RequestForReviewUser())),
+          ? const ProgressUser()
+          : (_selectedIndex == 1 ? const RequestForReview() : (_selectedIndex == 2 ? const Progress() : RequestForReviewUser())),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -93,8 +93,8 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
           ),
         ],
         currentIndex: _selectedIndex,
-        unselectedItemColor: Color(0xffd2c6c0),
-        selectedItemColor: Color(0xff333333),
+        unselectedItemColor: const Color(0xffd2c6c0),
+        selectedItemColor: const Color(0xff333333),
         onTap: _onItemTapped,
       ),
 
@@ -104,12 +104,12 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => PhoneNumber()),
+              MaterialPageRoute(builder: (context) => const PhoneNumber()),
             );
           },
           backgroundColor: Colors.green,
-          shape: CircleBorder(),
-          child: Icon(
+          shape: const CircleBorder(),
+          child: const Icon(
             Icons.phone,
             color: Colors.white,
           ),
