@@ -62,7 +62,7 @@ class _EditReviewState extends State<EditReview> {
                 ),
                 child:
                 const Text(
-                  'dd'
+                  'ㅇㅇ' // need to bring data from firebase
                 ),
 
               ),
@@ -163,3 +163,4 @@ class _EditReviewState extends State<EditReview> {
     );
   }
 }
+

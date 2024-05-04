@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:designpractice/requestforreview/requestforreview.dart';
+import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
 import '../progress/newprogress.dart';
 import '../progress/progress.dart';
@@ -31,59 +32,39 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Row(
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  _selectedIndex == 0
-                      ? '인허가 진행현황_관리자'
-                      : (_selectedIndex == 1
-                      ? '검토의뢰_관리자'
-                      : (_selectedIndex == 2
-                      ? '인허가 진행현황_유저'
-                      : '검토의뢰_유저')),
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff333333),
-                  ),
-                ),
-              ),
+        centerTitle: true,
+        actions: [
+          if (_selectedIndex == 0)
+            IconButton(
+              onPressed: () async {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewProgress()),
+                );
+                if (result != null) {
+                  setState(() {});
+                }
+              },
+              icon: Icon(Icons.edit),
             ),
-            if (_selectedIndex == 0)
-              IconButton(
-                onPressed: () async {
-                  final result = await Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => NewProgress()),
-                  );
-                  if (result != null) {
-                    setState(() {});
-                  }
-                },
-                icon: Icon(Icons.edit),
-              ),
-            if (_selectedIndex == 3)
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => NewReview()),
-                  );
-                },
-                icon: Icon(Icons.edit_calendar),
-              ),
-            Builder(
-              builder: (context) => IconButton(
-                onPressed: () {
-                  Scaffold.of(context).openEndDrawer();
-                },
-                icon: Icon(Icons.menu),
-              ),
+          if (_selectedIndex == 3)
+            IconButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => NewReview()),
+                );
+              },
+              icon: Icon(Icons.edit_calendar),
             ),
-          ],
+        ],
+        title: Text(
+          _selectedIndex == 0 ? '인허가 진행현황_관리자' : (_selectedIndex == 1 ? '검토의뢰_관리자' : (_selectedIndex == 2 ? '인허가 진행현황_유저' : '검토의뢰_유저')),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            color: Color(0xff333333),
+          ),
         ),
         toolbarHeight: 52,
       ),
@@ -91,9 +72,7 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
       // _selectedIndex가 0이 아닌 경우 앱바를 숨김
       body: _selectedIndex == 0
           ? ProgressUser()
-          : (_selectedIndex == 1
-          ? RequestForReview()
-          : (_selectedIndex == 2 ? Progress() : RequestForReviewUser())),
+          : (_selectedIndex == 1 ? RequestForReview() : (_selectedIndex == 2 ? Progress() : RequestForReviewUser())),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -136,6 +115,7 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
           ),
         ),
       ),
+      endDrawer: DrawerMenu(),
     );
   }
 

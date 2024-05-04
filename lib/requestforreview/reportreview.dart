@@ -54,27 +54,38 @@ class _ReportReviewState extends State<ReportReview> {
           ),
 
           const SizedBox(height: 10), // 구분선을 위한 여백 추가
-          const Divider( // 구분선 추가
+          const Divider(
+            // 구분선 추가
             color: Color(0xffe6e3dd),
             thickness: 10,
           ),
           const Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0, right: 20, top:8, bottom: 8),
+              padding: EdgeInsets.only(left: 20.0, right: 20, top: 8, bottom: 8),
               child: Text(
                 '검토 현황',
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Color(0xff87857a)
-                ),
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, color: Color(0xff87857a)),
               ),
             ),
           ),
 
           GestureDetector(
             onTap: () {
+              showBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    height: 100,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                    ),
+                    child: Text("dddd"),
+                  );
+                },
+              );
+              return;
               setState(() {
                 _isSheetVisible = !_isSheetVisible;
               });
@@ -107,7 +118,7 @@ class _ReportReviewState extends State<ReportReview> {
               ),
             ),
           ),
-          if (_isSheetVisible)
+          /*if (_isSheetVisible)
             Expanded(
               child: DraggableScrollableSheet(
                 initialChildSize: 0.5, // 시작 크기 지정
@@ -158,6 +169,10 @@ class _ReportReviewState extends State<ReportReview> {
                               ],
                             ),
                             onTap: () {
+
+
+
+
                               setState(() {
                                 _selectedItem = itemText; // 선택된 항목 업데이트
                                 _isSheetVisible = false; // 시트 감추기
@@ -170,7 +185,7 @@ class _ReportReviewState extends State<ReportReview> {
                     );
                 },
               ),
-            ),
+            ),*/
           SizedBox(
             height: 10,
           ),
@@ -178,14 +193,10 @@ class _ReportReviewState extends State<ReportReview> {
           const Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: EdgeInsets.only(left: 20.0, right: 20, top:8, bottom: 8),
+              padding: EdgeInsets.only(left: 20.0, right: 20, top: 8, bottom: 8),
               child: Text(
                 '검토의견',
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Color(0xff333333)
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: Color(0xff333333)),
               ),
             ),
           ),

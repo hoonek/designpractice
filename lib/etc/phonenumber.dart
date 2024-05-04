@@ -6,11 +6,10 @@ class PhoneNumber extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Text('phonenumber')
-        ],
+      appBar: AppBar(
+        title: Text('PhoneNumber',)
       ),
+
     );
   }
 }
