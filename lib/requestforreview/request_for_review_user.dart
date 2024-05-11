@@ -4,48 +4,50 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../model/model_review.dart';
 import 'editreview.dart';
 
-
 class RequestForReviewUser extends StatefulWidget {
-
-  const RequestForReviewUser({super.key,});
+  const RequestForReviewUser({
+    super.key,
+  });
 
   @override
   _RequestForReviewUserState createState() => _RequestForReviewUserState();
 }
 
 class _RequestForReviewUserState extends State<RequestForReviewUser> {
-  List<ModelReview> modelreviews = [];
+  List<ModelReview> modelReviews = [];
 
   @override
   void initState() {
+    debugPrint("RequestForReviewUser init");
     super.initState();
     _fetchReviews();
   }
 
   Future<void> _fetchReviews() async {
-    final reviewSnapshot = await FirebaseFirestore.instance.collection('review').get();
-    final List<ModelReview> fetchedReviews = reviewSnapshot.docs.map((doc) {
-      final data = doc.data() as Map<String, dynamic>;
+    final QuerySnapshot<Map<String, dynamic>> reviewSnapshot = await FirebaseFirestore.instance.collection('review').get();
+    modelReviews = reviewSnapshot.docs.map((doc) {
+      final data = doc.data();
       return ModelReview.fromJson(data);
     }).toList();
 
-    setState(() {
-      modelreviews = fetchedReviews;
-    });
+    //modelReviews = reviewSnapshot.docs.map((doc) => ModelReview.fromJson(doc.data())).toList();
+
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-        itemCount: modelreviews.length,
+        itemCount: modelReviews.length,
         itemBuilder: (context, index) {
+          debugPrint("index : $index");
           return GestureDetector(
             onTap: () async {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => EditReview(modelReview: modelreviews[index]),
+                  builder: (context) => EditReview(modelReview: modelReviews[index]),
                 ),
               );
             },
@@ -70,7 +72,7 @@ class _RequestForReviewUserState extends State<RequestForReviewUser> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '${modelreviews[index].name}',
+                    '${modelReviews[index].name}',
                     style: const TextStyle(
                       fontSize: 16,
                       color: Color(0xff90786c),
@@ -79,7 +81,7 @@ class _RequestForReviewUserState extends State<RequestForReviewUser> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '${modelreviews[index].project}',
+                    '${modelReviews[index].project}',
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16,
@@ -97,9 +99,10 @@ class _RequestForReviewUserState extends State<RequestForReviewUser> {
                           fontSize: 13,
                         ),
                       ),
-                      Text(
-                        'widget.modelOpinion.status', // 상태 텍스트 표시
-                      ),
+                      if (modelReviews[index].modelOpinion != null)
+                        Text(
+                          modelReviews[index].modelOpinion!.status, // 상태 텍스트 표시
+                        ),
                     ],
                   ),
                 ],
@@ -110,9 +113,14 @@ class _RequestForReviewUserState extends State<RequestForReviewUser> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    debugPrint("dispose");
+  }
 }
-
-
 
 Color _getReviewStatusColor(String status) {
   switch (status) {
@@ -128,4 +136,3 @@ Color _getReviewStatusColor(String status) {
       return Colors.black; // 기본값은 검은색
   }
 }
-

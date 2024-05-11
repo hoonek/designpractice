@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 const colorWhite = Color(0xFFFFFFFF);
 const colorBlack = Color(0xFF000000);
 const colorFavorite = Color(0xFFFF3C3C);
+const colorPrimary = Color(0xff9e8477);
 
 /* Gray Scale */
 const colorGray50 = Color(0xFFFAFAFA);

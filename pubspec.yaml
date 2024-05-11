@@ -40,12 +40,13 @@ dependencies:
   uuid: ^4.4.0
   intl: ^0.19.0
   fluttertoast: ^8.2.5
+  linear_step_indicator: ^1.0.0+3
+  linear_progress_bar: ^1.1.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  linear_step_indicator: ^1.0.0+3
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

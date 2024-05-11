@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:designpractice/requestforreview/requestforreview.dart';
+import 'package:designpractice/requestforreview/request_for_review_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 
@@ -226,7 +226,7 @@ class _NewReviewState extends State<NewReview> {
                           name: _nameEditingController.text,
                           space: _spaceEditingController.text,
                         );
-                        await FirebaseFirestore.instance.collection('review').doc(modelreview.project).set(modelreview.toJson());
+                        await FirebaseFirestore.instance.collection('review').doc(modelreview.id).set(modelreview.toJson());
                         Navigator.pop(context, modelreview);
                       } else {
                         // 필드가 하나 이상 비어있는 경우

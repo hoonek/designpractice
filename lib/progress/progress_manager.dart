@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import '../etc/drawermenu.dart';
-import '../etc/phonenumber.dart';
-import '../requestforreview/new_review.dart';
-import '../requestforreview/requestforreview.dart';
-import 'newprogress_user.dart';
 
 class ProgressManager extends StatefulWidget {
   const ProgressManager({Key? key}) : super(key: key);

@@ -1,13 +1,13 @@
 import 'package:designpractice/model/model_opinion.dart';
 import 'package:flutter/material.dart';
-import 'package:designpractice/requestforreview/requestforreview.dart';
+import 'package:designpractice/requestforreview/request_for_review_manager.dart';
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
 import '../progress/newprogress_user.dart';
 import '../progress/progress_user.dart';
 import '../progress/progress_manager.dart';
 import '../requestforreview/new_review.dart';
-import '../requestforreview/requestforreviewuser.dart';
+import '../requestforreview/request_for_review_user.dart';
 
 class SelectedOptionHome extends StatefulWidget {
   final int selectedIndex; // 선택된 인덱스를 저장하기 위한 변수

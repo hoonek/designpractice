@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:designpractice/start%20screen/selectoption.dart';
 import 'package:flutter/material.dart';
 
@@ -17,6 +16,9 @@ class _LoginscreenState extends State<Loginscreen> {
     super.initState();
     _nameController.addListener(_validateInput);
     _memberIdController.addListener(_validateInput);
+     WidgetsBinding.instance.endOfFrame.then((value) {
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const SelectOption()));
+    });
   }
 
   @override
@@ -36,97 +38,105 @@ class _LoginscreenState extends State<Loginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(
-            width: 180,
-            height: 222,
-            child: Container(
-              margin: EdgeInsets.only(left: 32, top: 96),
-              child: Text(
-                '진행과정을 \n "한눈에"',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 200,
-          ),
-          SizedBox(
-            width: 350,
-            height: 200,
-            child: Container(
-              margin: EdgeInsets.only(left: 24),
+          Expanded(
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      '이름',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff87857A),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      controller: _nameController,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF333333),
-                      ),
-                      decoration: InputDecoration(
-                        hintText: '홍길동',
-                        hintStyle: TextStyle(
-                          color: Color(0xFFE6E3DD),
+                  SizedBox(
+                    width: 180,
+                    height: 222,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 32, top: 96),
+                      child: Text(
+                        '진행과정을 \n "한눈에"',
+                        style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Text(
-                      '회원번호',
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xff87857A),
+                  SizedBox(
+                    height: 200,
+                  ),
+                  SizedBox(
+                    width: 350,
+                    height: 200,
+                    child: Container(
+                      margin: EdgeInsets.only(left: 24),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Text(
+                              '이름',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff87857A),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: TextField(
+                              controller: _nameController,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFF333333),
+                              ),
+                              decoration: InputDecoration(
+                                hintText: '홍길동',
+                                hintStyle: TextStyle(
+                                  color: Color(0xFFE6E3DD),
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 16),
+                            child: Text(
+                              '회원번호',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: Color(0xff87857A),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            child: TextField(
+                              controller: _memberIdController,
+                              style: TextStyle(
+                                fontSize: 16,
+                                color: Color(0xFF333333),
+                              ),
+                              decoration: InputDecoration(
+                                hintText: '회원번호를 입력하세요',
+                                hintStyle: TextStyle(
+                                  color: Color(0xFFE6E3DD),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  SizedBox(height: 8),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      controller: _memberIdController,
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Color(0xFF333333),
-                      ),
-                      decoration: InputDecoration(
-                        hintText: '회원번호를 입력하세요',
-                        hintStyle: TextStyle(
-                          color: Color(0xFFE6E3DD),
-                        ),
-                      ),
-                    ),
-                  ),
+                  SizedBox(height: 100),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 100),
           Padding(
             padding: const EdgeInsets.all(20.0),
             child: ElevatedButton(
@@ -161,31 +171,6 @@ class _LoginscreenState extends State<Loginscreen> {
               ),
             ),
           ),
-
-          /*
-          ElevatedButton(
-            onPressed: () async {
-              // collection(book)
-              // doc(page) -> each model
-              // userCollection -> userModel -> khuser, knuser, jwuser
-              // itemCollection -> itemModel ->
-              await FirebaseFirestore.instance.collection('test').doc('docId_1').set({
-                'id': 1,
-              }); // doc id fixed and doc added
-              //await FirebaseFirestore.instance.collection('test').add({'id': 1});
-              await FirebaseFirestore.instance.collection('test').doc('docId_1').update({
-                'listMemberId': FieldValue.arrayUnion(['myId']),
-              });
-              // listMemberId : ['id_1','id_2'] -> ['id_1','id_2','my_Id']
-              await FirebaseFirestore.instance.collection('test').doc('docId_1').update({
-                'listMemberId': FieldValue.arrayUnion(['myId']),
-              });
-            },
-            child: Text('uos'),
-
-          ),
-
-           */
         ],
       ),
     );

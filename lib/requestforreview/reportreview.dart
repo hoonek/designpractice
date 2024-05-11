@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:designpractice/component/text_field_round.dart';
+import 'package:designpractice/const/key.dart';
 import 'package:designpractice/model/model_review.dart';
 import 'package:designpractice/service/uits/utils.dart';
+import 'package:designpractice/start%20screen/selectoption.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -78,13 +80,11 @@ class _ReportReviewState extends State<ReportReview> {
               onTap: () {
                 showModalBottomSheet(
                     context: context,
-
                     builder: (context) => Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Color(0xfffefbf6),
-                      ),
-
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xfffefbf6),
+                          ),
                           child: ListView.builder(
                             //controller: scrollController,
                             itemCount: 4, // 4개의 항목만 있는 것으로 가정
@@ -207,14 +207,17 @@ class _ReportReviewState extends State<ReportReview> {
                           return;
                         }
                         final id = Utils.generateRandomString(2);
-                        ModelOpinion modelopinion = ModelOpinion(
-                          id: id,
+                        ModelOpinion modelOpinion = ModelOpinion(
                           content: _opinionEditingController.text,
-                          reviewId: widget.modelReview.id,
                           status: _selectedItem,
                         );
-                        Navigator.pop(context, modelopinion);
-                        await FirebaseFirestore.instance.collection('manager_opinion').doc(modelopinion.id).set(modelopinion.toJson());
+
+                        Navigator.pop(context);
+
+                        // 1
+                        final newModelReview = widget.modelReview.copyWith(modelOpinion: modelOpinion);
+                        await FirebaseFirestore.instance.collection(keyReview).doc(widget.modelReview.id).set(newModelReview.toJson());
+                        getReview();
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,

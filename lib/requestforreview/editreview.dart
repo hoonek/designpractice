@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:designpractice/model/model_opinion.dart';
 import 'package:flutter/material.dart';
 import '../model/model_review.dart';
 
@@ -13,20 +11,10 @@ class EditReview extends StatefulWidget {
 }
 
 class _EditReviewState extends State<EditReview> {
-  ModelOpinion? modelOpinion;
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getModelOpinion();
-  }
-
-  getModelOpinion() async {
-    final qs = await FirebaseFirestore.instance.collection('manager_opinion').where('reviewId', isEqualTo: widget.modelReview.id).get();
-    setState(() {
-      modelOpinion = ModelOpinion.fromJson(qs.docs.first.data());
-    });
   }
 
   @override
@@ -68,7 +56,7 @@ class _EditReviewState extends State<EditReview> {
                   borderRadius: BorderRadius.circular(12),
                   color: const Color(0xfff4f1ea),
                 ),
-                child: Text(modelOpinion == null ? '로딩중' : modelOpinion!.content),
+                child: Text(widget.modelReview.modelOpinion == null ? '' : widget.modelReview.modelOpinion!.content),
               ),
               const SizedBox(height: 20),
               const Text(
