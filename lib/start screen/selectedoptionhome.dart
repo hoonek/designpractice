@@ -1,10 +1,11 @@
+import 'package:designpractice/model/model_opinion.dart';
 import 'package:flutter/material.dart';
 import 'package:designpractice/requestforreview/requestforreview.dart';
 import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
-import '../progress/newprogress.dart';
-import '../progress/progress.dart';
-import '../progress/progressuser.dart';
+import '../progress/newprogress_user.dart';
+import '../progress/progress_user.dart';
+import '../progress/progress_manager.dart';
 import '../requestforreview/new_review.dart';
 import '../requestforreview/requestforreviewuser.dart';
 
@@ -32,14 +33,14 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        centerTitle: true,
+        centerTitle: true, //true 시 appbar 기준 중앙으로 옴
         actions: [
           if (_selectedIndex == 0)
             IconButton(
               onPressed: () async {
                 final result = await Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const NewProgress()),
+                  MaterialPageRoute(builder: (context) => const NewProgressUser()),
                 );
                 if (result != null) {
                   setState(() {});
@@ -71,8 +72,13 @@ class _SelectedOptionHomeState extends State<SelectedOptionHome> {
 
       // _selectedIndex가 0이 아닌 경우 앱바를 숨김
       body: _selectedIndex == 0
-          ? const ProgressUser()
-          : (_selectedIndex == 1 ? const RequestForReview() : (_selectedIndex == 2 ? const Progress() : RequestForReviewUser())),
+          ? const ProgressManager()
+          : (_selectedIndex == 1 ? const RequestForReview() :
+      (_selectedIndex == 2 ? ProgressUser() :
+      RequestForReviewUser(      )
+      )
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

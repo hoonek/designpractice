@@ -3,16 +3,16 @@ import '../etc/drawermenu.dart';
 import '../etc/phonenumber.dart';
 import '../requestforreview/new_review.dart';
 import '../requestforreview/requestforreview.dart';
-import 'newprogress.dart';
+import 'newprogress_user.dart';
 
-class ProgressUser extends StatefulWidget {
-  const ProgressUser({Key? key}) : super(key: key);
+class ProgressManager extends StatefulWidget {
+  const ProgressManager({Key? key}) : super(key: key);
 
   @override
   _ProgressUserState createState() => _ProgressUserState();
 }
 
-class _ProgressUserState extends State<ProgressUser> {
+class _ProgressUserState extends State<ProgressManager> {
   late PageController pageController;
   int _selectedIndex = 0;
 

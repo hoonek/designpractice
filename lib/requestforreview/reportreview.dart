@@ -78,8 +78,13 @@ class _ReportReviewState extends State<ReportReview> {
               onTap: () {
                 showModalBottomSheet(
                     context: context,
+
                     builder: (context) => Container(
-                          color: Colors.grey,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Color(0xfffefbf6),
+                      ),
+
                           child: ListView.builder(
                             //controller: scrollController,
                             itemCount: 4, // 4개의 항목만 있는 것으로 가정
@@ -111,7 +116,7 @@ class _ReportReviewState extends State<ReportReview> {
                                       style: TextStyle(
                                         fontSize: 16, // 글씨 크기 조정
                                         fontFamily: 'Roboto', // 글씨체 변경
-                                        color: _selectedItem == itemText ? Colors.black : Colors.white, // 선택된 항목은 검정색, 그렇지 않으면 회색
+                                        color: _selectedItem == itemText ? Colors.black : Color(0xffc0beb6), // 선택된 항목은 검정색, 그렇지 않으면 회색
                                       ),
                                     ),
                                     if (_selectedItem == itemText)
@@ -123,7 +128,7 @@ class _ReportReviewState extends State<ReportReview> {
                                   setState(() {
                                     _selectedItem = itemText; // 선택된 항목 업데이트
                                     Navigator.of(context).pop();
-                                    fn.unfocus();
+                                    fn.unfocus(); // 특정 지점에서 입력 받을 때 사용, unfocus는 키보드 올라오는거 막아줌
                                   });
                                 },
                               );
